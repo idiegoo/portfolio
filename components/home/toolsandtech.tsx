@@ -16,7 +16,8 @@ import {
   MySqlLogo,
   NestJsLogo,
   TailwindCSSLogo,
-  PostgreSQLLogo
+  PostgreSQLLogo,
+  PythonLogo
 } from '../icons/index'
 import styles from './toolsandtech.module.css'
 
@@ -70,6 +71,7 @@ export function ToolsAndTech() {
           <NestJsLogo className={styles.nestJsLogo} width={50} onMouseEnter={() => showText(12)} onMouseLeave={hideText}/>
           <TailwindCSSLogo className={styles.tailwindCSSLogo} width={50} onMouseEnter={() => showText(13)} onMouseLeave={hideText}/>
           <PostgreSQLLogo className={styles.postgreSQLLogo} width={50} onMouseEnter={() => showText(14)} onMouseLeave={hideText}/>
+          <PythonLogo className={styles.pythonLogo} width={50} onMouseEnter={() => showText(15)} onMouseLeave={hideText}/>
         </div>
       </Fade>
     </div>

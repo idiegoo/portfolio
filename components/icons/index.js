@@ -13,6 +13,7 @@ export { default as MySqlLogo } from './MySqlLogo'
 export { default as NestJsLogo } from './NestJsLogo'
 export { default as TailwindCSSLogo } from './TailwindCSSLogo'
 export { default as PostgreSQLLogo } from './PostgreSQLLogo'
+export { default as PythonLogo } from './PythonLogo'
 
 export { default as GithubLogo } from './GithubLogo'
 export { default as GoToWebsiteLogo } from './GoToWebsiteLogo'
