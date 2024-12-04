@@ -11,6 +11,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@types/node": "18.11.9",
+    "@vercel/analytics": "^1.4.1",
     "eslint-config-next": "^14.1.0",
     "next": "^14.1.0",
     "react": "^18.2.0",

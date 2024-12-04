@@ -1,6 +1,7 @@
 import { Navigation } from "../components/Navigation"
 import { Footer } from "../components/Footer"
 import '../styles/globals.css'
+import { Analytics } from '@vercel/analytics/next'
 
 export default function RootLayout({ children }: {
   children: React.ReactNode
@@ -17,6 +18,7 @@ export default function RootLayout({ children }: {
       <body>
         <Navigation/>
           {children}
+          <Analytics/>
         <Footer/>
       </body>
     </html>
