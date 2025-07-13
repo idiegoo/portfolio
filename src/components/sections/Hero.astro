@@ -1,0 +1,131 @@
+---
+import Icons from '../Icons.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const socialLinks: {
+  href: string;
+  label: string;
+  icon: "github" | "linkedin" | "mail";
+}[] = [
+  { href: "https://github.com/idiegoo", label: "GitHub", icon: "github" },
+  { href: "https://linkedin.com/in/idiegoo", label: "LinkedIn", icon: "linkedin" },
+  { href: "mailto:idiegocs9@gmail.com", label: "Email", icon: "mail" },
+]
+---
+
+<section
+  id="home"
+  class="min-h-screen flex items-center justify-center relative overflow-hidden"
+>
+  <!-- Animated background effects -->
+  <div class="absolute inset-0">
+    <div
+      class="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"
+    >
+    </div>
+    <div
+      class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-3xl animate-pulse"
+      style="animation-delay: 1s;"
+    >
+    </div>
+    <div
+      class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse"
+      style="animation-delay: 0.5s;"
+    >
+    </div>
+  </div>
+
+  <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+    <div class="mb-8">
+      <h1
+        class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-purple-300 to-green-300 bg-clip-text text-transparent py-1 leading-tight"
+      >
+        {t('hero.title')}
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
+        {t('hero.subtitle')}
+      </p>
+      <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-12">
+        {t('hero.description')}
+      </p>
+    </div>
+
+    <div
+      class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
+    >
+      <a
+        href="#projects"
+        class="inline-flex items-center justify-center px-8 py-3 text-lg font-medium rounded-lg bg-gradient-to-r from-purple-600 to-green-600 hover:from-purple-700 hover:to-green-700 text-white shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:shadow-[0_0_30px_rgba(168,85,247,0.5)] transition-all duration-300"
+      >
+        {t('hero.viewWork')}
+      </a>
+      <a
+        href="/cv.pdf"
+        download
+        class="inline-flex items-center justify-center px-8 py-3 text-lg font-medium rounded-lg border border-white/20 text-white hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] bg-transparent transition-all duration-300"
+      >
+        {t('hero.downloadCV')}
+      </a>
+    </div>
+
+    <div class="flex justify-center space-x-6 mb-12">
+      {socialLinks.map(({ href, label, icon }) => (
+        <a
+          href={href}
+          class={`group p-3 rounded-full border border-white/20 transition-all duration-300 ${
+            icon === 'github' 
+              ? 'hover:border-gray-400/50 hover:bg-gray-500/10 hover:shadow-[0_0_15px_rgba(156,163,175,0.4)]' 
+              : icon === 'linkedin' 
+              ? 'hover:border-blue-400/50 hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)]' 
+              : icon === 'mail'
+              ? 'hover:border-red-400/50 hover:bg-red-500/10 hover:shadow-[0_0_15px_rgba(239,68,68,0.4)]'
+              : ''
+          }`}
+          aria-label={label}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icons icon={icon} size={24} brandColors={true} class="text-white" />
+        </a>
+      ))}
+    </div>
+
+    <div class="animate-bounce">
+      <Icons icon="arrow-down" size={32} class="mx-auto text-gray-400" />
+    </div>
+  </div>
+</section>
+
+<style>
+  @reference "tailwindcss";
+  .animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-bounce {
+    animation: bounce 1s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: translateY(-25%);
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+</style>

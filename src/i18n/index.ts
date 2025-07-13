@@ -1,0 +1,79 @@
+export const languages = {
+  en: 'English',
+  es: 'Español',
+};
+
+export const defaultLang = 'en';
+
+export const ui = {
+  en: {
+    'nav.home': 'Home',
+    'nav.about': 'About',
+    'nav.projects': 'Projects',
+    'nav.contact': 'Contact',
+    'hero.title': 'Diego Ramirez',
+    'hero.subtitle': 'Full Stack Developer & UI/UX Designer',
+    'hero.description': 'Crafting digital experiences with modern technologies and creative solutions. Passionate about clean code, beautiful interfaces, and innovative problem-solving.',
+    'hero.viewWork': 'View My Work',
+    'hero.downloadCV': 'Download CV',
+    'about.title': 'About Me',
+    'about.description': 'I am a passionate developer with expertise in modern web technologies. I love creating beautiful, functional, and user-friendly applications.',
+    'about.skills': 'Skills & Technologies',
+    'projects.title': 'Featured Projects',
+    'projects.viewProject': 'View Project',
+    'projects.viewCode': 'View Code',
+    'contact.title': 'Get In Touch',
+    'contact.description': 'I\'m always open to discussing new opportunities and interesting projects.',
+    'contact.name': 'Name',
+    'contact.email': 'Email',
+    'contact.message': 'Message',
+    'contact.send': 'Send Message',
+    'footer.madeWith': 'Made with',
+    'footer.using': 'using Astro.js & TypeScript',
+    'footer.rights': 'All rights reserved.',
+    'theme.light': 'Light',
+    'theme.dark': 'Dark',
+    'theme.toggle': 'Toggle theme',
+  },
+  es: {
+    'nav.home': 'Inicio',
+    'nav.about': 'Acerca de',
+    'nav.projects': 'Proyectos',
+    'nav.contact': 'Contacto',
+    'hero.title': 'Diego Ramirez',
+    'hero.subtitle': 'Desarrollador Full Stack & Diseñador UI/UX',
+    'hero.description': 'Creando experiencias digitales con tecnologías modernas y soluciones creativas. Apasionado por el código limpio, interfaces hermosas y la resolución innovadora de problemas.',
+    'hero.viewWork': 'Ver Mi Trabajo',
+    'hero.downloadCV': 'Descargar CV',
+    'about.title': 'Acerca de Mí',
+    'about.description': 'Soy un desarrollador apasionado con experiencia en tecnologías web modernas. Me encanta crear aplicaciones hermosas, funcionales y fáciles de usar.',
+    'about.skills': 'Habilidades y Tecnologías',
+    'projects.title': 'Proyectos Destacados',
+    'projects.viewProject': 'Ver Proyecto',
+    'projects.viewCode': 'Ver Código',
+    'contact.title': 'Pongámonos en Contacto',
+    'contact.description': 'Siempre estoy abierto a discutir nuevas oportunidades y proyectos interesantes.',
+    'contact.name': 'Nombre',
+    'contact.email': 'Correo',
+    'contact.message': 'Mensaje',
+    'contact.send': 'Enviar Mensaje',
+    'footer.madeWith': 'Hecho con',
+    'footer.using': 'usando Astro.js y TypeScript',
+    'footer.rights': 'Todos los derechos reservados.',
+    'theme.light': 'Claro',
+    'theme.dark': 'Oscuro',
+    'theme.toggle': 'Cambiar tema',
+  },
+} as const;
+
+export function getLangFromUrl(url: URL) {
+  const [, lang] = url.pathname.split('/');
+  if (lang in languages) return lang as keyof typeof languages;
+  return defaultLang;
+}
+
+export function useTranslations(lang: keyof typeof languages) {
+  return function t(key: keyof typeof ui[typeof defaultLang]) {
+    return ui[lang][key] || ui[defaultLang][key];
+  }
+}

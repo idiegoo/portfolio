@@ -1,0 +1,160 @@
+---
+import Icons from '../Icons.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const socialLinks: {
+  href: string;
+  label: string;
+  icon: "github" | "linkedin" | "mail";
+}[] = [
+  { href: "https://github.com/idiegoo", label: "GitHub", icon: "github" },
+  { href: "https://linkedin.com/in/idiegoo", label: "LinkedIn", icon: "linkedin" },
+  { href: "mailto:idiegocs9@gmail.com", label: "Email", icon: "mail" },
+];
+---
+
+<section id="contact" class="py-20 px-4">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-green-400 bg-clip-text text-transparent md:py-1">
+        {t('contact.title')}
+      </h2>
+      <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+        {t('contact.description')}
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12 items-start">
+      <!-- Contact Form -->
+      <div class="space-y-6">
+        <form class="space-y-6" id="contact-form">
+          <div>
+            <label for="name" class="block text-sm font-medium text-white mb-2">
+              {t('contact.name')}
+            </label>
+            <input 
+              type="text" 
+              id="name" 
+              name="name"
+              required
+              class="contact-input"
+              placeholder={t('contact.name')}
+            />
+          </div>
+          
+          <div>
+            <label for="email" class="block text-sm font-medium text-white mb-2">
+              {t('contact.email')}
+            </label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email"
+              required
+              class="contact-input"
+              placeholder={t('contact.email')}
+            />
+          </div>
+          
+          <div>
+            <label for="message" class="block text-sm font-medium text-white mb-2">
+              {t('contact.message')}
+            </label>
+            <textarea 
+              id="message" 
+              name="message"
+              rows="5"
+              required
+              class="contact-input resize-none"
+              placeholder={t('contact.message')}
+            ></textarea>
+          </div>
+          
+          <button 
+            type="submit"
+            class="w-full bg-gradient-to-r from-purple-600 to-green-600 hover:from-purple-700 hover:to-green-700 text-white font-medium py-3 px-6 rounded-md transition-all duration-200 shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:shadow-[0_0_30px_rgba(168,85,247,0.5)] cursor-pointer"
+          >
+            {t('contact.send')}
+          </button>
+        </form>
+      </div>
+
+      <!-- Contact Info & Social Links -->
+      <div class="space-y-8">
+        <div class="bg-gray-900 border border-gray-800 rounded-lg p-6 space-y-6">
+          <h3 class="text-xl font-semibold text-white mb-4">
+            Connect with me
+          </h3>
+          
+          <div class="space-y-4">
+            {socialLinks.map(({ href, label, icon }) => (
+              <a 
+                href={href}
+                class="flex items-center gap-4 p-3 rounded-md border border-gray-800 hover:bg-gray-800 transition-all duration-200 group"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div class={`p-2 rounded-full transition-all duration-300 ${
+                  icon === 'github' 
+                    ? 'bg-gray-500/10 text-gray-400 group-hover:bg-gray-500/20 group-hover:text-gray-300' 
+                    : icon === 'linkedin' 
+                    ? 'bg-blue-500/10 text-blue-400 group-hover:bg-blue-500/20 group-hover:text-blue-400' 
+                    : icon === 'mail'
+                    ? 'bg-red-500/10 text-red-400 group-hover:bg-red-500/20 group-hover:text-red-400'
+                    : ''
+                }`}>
+                  <Icons icon={icon} size={20} />
+                </div>
+                <span class="text-white group-hover:text-purple-400 transition-colors">
+                  {label}
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Contact form submission
+  const contactForm = document.getElementById('contact-form') as HTMLFormElement;
+  
+  contactForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // Get form data
+    const formData = new FormData(contactForm);
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const message = formData.get('message');
+    
+    // Simple validation
+    if (!name || !email || !message) {
+      alert('Please fill in all fields');
+      return;
+    }
+    
+    // Create mailto link
+    const subject = `Contact from ${name}`;
+    const body = `Hi Diego,\n\n${message}\n\nBest regards,\n${name}\n${email}`;
+    const mailtoLink = `mailto:idiegocs9@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    // Open email client
+    window.location.href = mailtoLink;
+    
+    // Reset form
+    contactForm.reset();
+  });
+</script>
+
+<style>
+  @reference "tailwindcss";
+  .contact-input {
+    @apply w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-md focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200 text-white placeholder:text-gray-400;
+  }
+</style>
