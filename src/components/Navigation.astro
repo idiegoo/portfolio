@@ -118,6 +118,59 @@ const currentPath = Astro.url.pathname;
     }
   });
 
+  // Section tracking for active navigation
+  function updateActiveNavLink() {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    let currentSection = 'home';
+    
+    sections.forEach((section) => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top <= 200 && rect.bottom >= 200) {
+        currentSection = section.id;
+      }
+    });
+    
+    // Remove active class from all links
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+    });
+    
+    // Add active class to current section link
+    const activeLink = document.querySelector(`a[href$="#${currentSection}"]`);
+    if (activeLink) {
+      activeLink.classList.add('active');
+    }
+  }
+
+  // Smooth scroll for navigation links
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const href = link.getAttribute('href');
+      if (href && href.includes('#')) {
+        const targetId = href.split('#')[1];
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  });
+
+  // Listen for scroll events
+  let scrollTimeout: NodeJS.Timeout;
+  window.addEventListener('scroll', () => {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      requestAnimationFrame(updateActiveNavLink);
+    }, 10);
+  });
+
+  // Initial check
+  document.addEventListener('DOMContentLoaded', updateActiveNavLink);
+
   // Mobile menu toggle
   const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
@@ -144,17 +197,56 @@ const currentPath = Astro.url.pathname;
 </script>
 
 <style>
-  @reference "tailwindcss";
   .nav-link {
-    @apply text-gray-400 hover:text-white transition-colors duration-200 relative;
+    color: rgb(156 163 175);
+    transition: color 0.2s ease-in-out;
+    position: relative;
+    text-decoration: none;
   }
-
-  .nav-link:hover::after {
-    @apply absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-purple-400 to-green-400;
+  
+  .nav-link:hover {
+    color: white;
+  }
+  
+  .nav-link::after {
     content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(to right, rgb(168 85 247), rgb(34 197 94));
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
   }
-
+  
+  .nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+  
+  .nav-link.active {
+    color: white;
+    font-weight: 500;
+  }
+  
+  .nav-link.active::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+    transition: transform 0.5s ease-in-out;
+  }
+  
   .control-btn {
-    @apply p-2 rounded-md bg-gray-800 border border-gray-700 hover:bg-gray-700 text-gray-300 transition-colors duration-200;
+    padding: 8px;
+    border-radius: 6px;
+    background-color: rgb(31 41 55);
+    border: 1px solid rgb(55 65 81);
+    color: rgb(209 213 219);
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .control-btn:hover {
+    background-color: rgb(55 65 81);
   }
 </style>
