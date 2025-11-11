@@ -20,8 +20,10 @@ const projectsData = projects[lang];
       {projectsData.map((project) => (
         <div class="project-card group">
           <!-- Project Image -->            <div class="relative overflow-hidden rounded-t-lg bg-gray-800">
-              <img 
-                src={project.image} 
+              <img
+                loading="lazy"
+                fetchpriority="high"
+                src={project.image}
                 alt={project.title}
                 class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
                 loading="lazy"
@@ -37,7 +39,7 @@ const projectsData = projects[lang];
             <p class="text-gray-400 mb-4 text-sm leading-relaxed">
               {project.description}
             </p>
-            
+
             <!-- Technologies -->
             <div class="flex flex-wrap gap-2 mb-6">
               {project.technologies.map((tech) => (
@@ -49,7 +51,7 @@ const projectsData = projects[lang];
 
             <!-- Project Links -->
             <div class="flex gap-3">
-              <a 
+              <a
                 href={project.liveUrl}
                 class="project-link bg-gradient-to-r from-purple-600 to-green-600 hover:from-purple-700 hover:to-green-700"
                 target="_blank"
@@ -58,7 +60,7 @@ const projectsData = projects[lang];
                 <Icons icon="external-link" size={16} />
                 {t('projects.viewProject')}
               </a>
-              <a 
+              <a
                 href={project.githubUrl}
                 class="project-link border border-gray-700 hover:bg-gray-800"
                 target="_blank"
