@@ -44,10 +44,10 @@ const socialLinks: {
     </div>
   </div>
 
-  <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-    <div class="mb-8">
-      <!-- Profile Image -->
-      <div class="flex justify-center items-center my-8">
+  <div class="relative z-10 px-4 max-w-7xl mx-auto">
+    <div class="flex flex-col lg:flex-row items-center lg:items-center gap-12 lg:gap-16">
+      <!-- Profile Image - Top on mobile, left on large screens -->
+      <div class="mt-8 lg:mt-0 flex-shrink-0 order-1 lg:order-1 flex justify-center lg:justify-start w-full lg:w-auto">
         <div class="relative">
           <div
             class="w-48 sm:w-64 md:w-80 h-48 sm:h-64 md:h-80 rounded-full overflow-hidden border-4 border-purple-400/20 shadow-[0_0_40px_rgba(168,85,247,0.3)]"
@@ -71,53 +71,57 @@ const socialLinks: {
           </div>
         </div>
       </div>
-      <h1
-        class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-purple-300 to-green-300 bg-clip-text text-transparent py-2 leading-tight"
-      >
-        {t("hero.title")}
-      </h1>
-      <div
-        class="mb-6 max-w-2xl bg-gray-900/50 backdrop-blur-sm border border-white/10 rounded-2xl px-6 py-4 inline-flex items-center shadow-[0_0_20px_rgba(255,255,255,0.3)]"
-      >
-        <span
-          class="mr-2 text-xl md:text-2xl font-medium text-gray-300 whitespace-nowrap"
-          >{t("hero.loader.building")}</span
+
+      <!-- Content - Right side on large screens -->
+      <div class="flex-1 text-center lg:text-left order-2 lg:order-2 mb-8 w-full lg:w-auto">
+        <h1
+          class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-purple-300 to-green-300 bg-clip-text text-transparent py-2 leading-tight"
         >
-        <div class="h-8">
-          <RotatingText
-            client:load
-            texts={[
-              t("hero.loader.web"),
-              t("hero.loader.mobile"),
-              t("hero.loader.apis"),
-              t("hero.loader.automation"),
-              t("hero.loader.solutions"),
-            ]}
-            mainClassName="px-2 sm:px-1 md:px-3 bg-gradient-to-r from-purple-500 to-purple-700 overflow-hidden justify-center rounded-lg text-xl md:text-2xl"
-            staggerFrom={"last"}
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "-120%" }}
-            staggerDuration={0.02}
-            splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
-            elementLevelClassName="font-bold text-gray-900"
-            transition={{ type: "spring", damping: 30, stiffness: 400 }}
-            rotationInterval={2000}
-          />
+          {t("hero.title")}
+        </h1>
+        <div
+          class="mb-6 bg-gray-900/50 backdrop-blur-sm border border-white/10 rounded-2xl px-6 py-4 inline-flex items-center shadow-[0_0_20px_rgba(255,255,255,0.3)] mx-auto lg:mx-0"
+        >
+          <span
+            class="mr-2 text-xl md:text-2xl font-medium text-gray-300 whitespace-nowrap"
+            >{t("hero.loader.building")}</span
+          >
+          <div class="h-8">
+            <RotatingText
+              client:load
+              texts={[
+                t("hero.loader.web"),
+                t("hero.loader.mobile"),
+                t("hero.loader.apis"),
+                t("hero.loader.automation"),
+                t("hero.loader.solutions"),
+              ]}
+              mainClassName="px-2 sm:px-1 md:px-3 bg-gradient-to-r from-purple-500 to-purple-700 overflow-hidden justify-center rounded-lg text-xl md:text-2xl"
+              staggerFrom={"last"}
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "-120%" }}
+              staggerDuration={0.02}
+              splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+              elementLevelClassName="font-bold text-gray-900"
+              transition={{ type: "spring", damping: 30, stiffness: 400 }}
+              rotationInterval={2000}
+            />
+          </div>
         </div>
-      </div>
-      <div class="w-sm items-center justify-center text-center md:w-2xl">
-        <p class="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
-          {t("hero.subtitle")}
-        </p>
-        <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-12">
-          {t("hero.description")}
-        </p>
+        <div class="w-sm items-center justify-center text-center lg:text-left lg:w-auto mx-auto lg:mx-0">
+          <p class="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
+            {t("hero.subtitle")}
+          </p>
+          <p class="text-lg text-gray-400 max-w-2xl mb-12 mx-auto lg:mx-0">
+            {t("hero.description")}
+          </p>
+        </div>
       </div>
     </div>
 
     <div
-      class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
+      class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 mt-12"
     >
       <a
         href="#projects"
