@@ -45,12 +45,6 @@ const currentPath = Astro.url.pathname;
           </div>
         </div>
 
-        <!-- Theme Toggle -->
-        <button id="theme-toggle" class="control-btn">
-          <Icons icon="sun" size={18} class="hidden dark:block" />
-          <Icons icon="moon" size={18} class="block dark:hidden" />
-        </button>
-
         <!-- Mobile Menu Toggle -->
         <button id="mobile-menu-toggle" class="control-btn md:hidden">
           <div id="menu-icon" class="block">
@@ -84,20 +78,6 @@ const currentPath = Astro.url.pathname;
 </nav>
 
 <script>
-  // Theme toggle functionality
-  const themeToggle = document.getElementById('theme-toggle');
-  const html = document.documentElement;
-  
-  // Check for saved theme preference or default to dark mode
-  const savedTheme = localStorage.getItem('theme') || 'dark';
-  html.classList.toggle('dark', savedTheme === 'dark');
-  
-  themeToggle?.addEventListener('click', () => {
-    const isDark = html.classList.contains('dark');
-    html.classList.toggle('dark', !isDark);
-    localStorage.setItem('theme', !isDark ? 'dark' : 'light');
-  });
-
   // Language menu toggle
   const languageBtn = document.getElementById('language-btn');
   const languageMenu = document.getElementById('language-menu');
