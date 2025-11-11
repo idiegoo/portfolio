@@ -2,29 +2,29 @@ export const skills = {
   en: {
     frontend: {
       title: 'Frontend',
-      items: ['React', 'Astro', 'TypeScript', 'Tailwind CSS', 'Next.js']
+      items: ['React', 'JavaScript', 'TypeScript', 'Tailwind CSS', 'Next.js', 'Astro']
     },
     backend: {
       title: 'Backend',
-      items: ['Node.js', 'Express', 'Python', 'PostgreSQL', 'MongoDB', 'Redis']
+      items: ['Node.js', 'Express', 'Docker', 'Python', 'PostgreSQL', 'MongoDB', 'Redis', 'Nginx']
     },
     tools: {
       title: 'Tools & Others',
-      items: ['Git', 'Docker', 'Figma', 'VS Code', 'Linux']
+      items: ['Git', 'Linux', 'N8N']
     }
   },
   es: {
     frontend: {
       title: 'Frontend',
-      items: ['React', 'Astro', 'TypeScript', 'Tailwind CSS', 'Next.js']
+      items: ['React', 'JavaScript', 'TypeScript', 'Tailwind CSS', 'Next.js', 'Astro']
     },
     backend: {
       title: 'Backend',
-      items: ['Node.js', 'Express', 'Python', 'PostgreSQL', 'MongoDB', 'Redis']
+      items: ['Node.js', 'Express', 'Docker', 'Python', 'PostgreSQL', 'MongoDB', 'Redis', 'Nginx']
     },
     tools: {
       title: 'Herramientas y Otros',
-      items: ['Git', 'Docker', 'Figma', 'VS Code', 'Linux']
+      items: ['Git', 'Linux', 'N8N']
     }
   }
 } as const;
