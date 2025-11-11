@@ -46,6 +46,31 @@ const socialLinks: {
 
   <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
     <div class="mb-8">
+      <!-- Profile Image -->
+      <div class="flex justify-center items-center my-8">
+        <div class="relative">
+          <div
+            class="w-48 sm:w-64 md:w-80 h-48 sm:h-64 md:h-80 rounded-full overflow-hidden border-4 border-purple-400/20 shadow-[0_0_40px_rgba(168,85,247,0.3)]"
+          >
+            <img
+              src="/images/profile.svg"
+              alt="Diego Ramirez"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <!-- Decorative elements -->
+          <div
+            class="absolute -top-4 -right-4 w-12 sm:w-16 md:w-20 h-12 sm:h-16 md:h-20 bg-gradient-to-br from-purple-400 to-green-400 rounded-full opacity-20 animate-pulse"
+          >
+          </div>
+          <div
+            class="absolute -bottom-6 -left-6 w-10 sm:w-12 md:w-16 h-10 sm:h-12 md:h-16 bg-gradient-to-tr from-green-400 to-purple-400 rounded-full opacity-30 animate-pulse"
+            style="animation-delay: 1s;"
+          >
+          </div>
+        </div>
+      </div>
       <h1
         class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-purple-300 to-green-300 bg-clip-text text-transparent py-2 leading-tight"
       >
@@ -81,7 +106,7 @@ const socialLinks: {
           />
         </div>
       </div>
-      <div class="w-sm text-center md:w-2xl">
+      <div class="w-sm items-center justify-center text-center md:w-2xl">
         <p class="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
           {t("hero.subtitle")}
         </p>
