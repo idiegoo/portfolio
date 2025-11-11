@@ -1,6 +1,8 @@
 ---
-import Icons from '../Icons.astro';
-import { getLangFromUrl, useTranslations } from '../../i18n';
+import Icons from "../Icons.astro";
+import { getLangFromUrl, useTranslations } from "../../i18n";
+import RotatingText from "../RotatingText";
+import { motion } from "motion/react";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -11,9 +13,13 @@ const socialLinks: {
   icon: "github" | "linkedin" | "mail";
 }[] = [
   { href: "https://github.com/idiegoo", label: "GitHub", icon: "github" },
-  { href: "https://linkedin.com/in/idiegoo", label: "LinkedIn", icon: "linkedin" },
+  {
+    href: "https://linkedin.com/in/idiegoo",
+    label: "LinkedIn",
+    icon: "linkedin",
+  },
   { href: "mailto:idiegocs9@gmail.com", label: "Email", icon: "mail" },
-]
+];
 ---
 
 <section
@@ -40,33 +46,49 @@ const socialLinks: {
 
   <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
     <div class="mb-8">
-      <div class="mb-6 bg-gray-900/50 backdrop-blur-sm border border-white/10 rounded-2xl px-6 py-4 inline-block">
-        <div class="flex items-center text-xl md:text-2xl font-medium text-gray-300">
-          <span class="mr-2">{t('hero.loader.building')}</span>
-          <div class="relative h-8 overflow-hidden">
-            <div class="absolute inset-0 from-transparent via-transparent to-gray-900/50 z-10 pointer-events-none"></div>
-            <div class="words">
-              <span class="word"> {t('hero.loader.web')} </span>
-              <span class="word"> {t('hero.loader.mobile')} </span>
-              <span class="word"> {t('hero.loader.apis')} </span>
-              <span class="word"> {t('hero.loader.solutions')} </span>
-              <span class="word"> {t('hero.loader.web')} </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <h1
         class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-purple-300 to-green-300 bg-clip-text text-transparent py-2 leading-tight"
       >
-        {t('hero.title')}
+        {t("hero.title")}
       </h1>
-      <p class="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
-        {t('hero.subtitle')}
-      </p>
-      <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-12">
-        {t('hero.description')}
-      </p>
+      <div
+        class="mb-6 max-w-2xl bg-gray-900/50 backdrop-blur-sm border border-white/10 rounded-2xl px-6 py-4 inline-flex items-center shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+      >
+        <span
+          class="mr-2 text-xl md:text-2xl font-medium text-gray-300 whitespace-nowrap"
+          >{t("hero.loader.building")}</span
+        >
+        <div class="h-8">
+          <RotatingText
+            client:load
+            texts={[
+              t("hero.loader.web"),
+              t("hero.loader.mobile"),
+              t("hero.loader.apis"),
+              t("hero.loader.automation"),
+              t("hero.loader.solutions"),
+            ]}
+            mainClassName="px-2 sm:px-1 md:px-3 bg-gradient-to-r from-purple-500 to-purple-700 overflow-hidden justify-center rounded-lg text-xl md:text-2xl"
+            staggerFrom={"last"}
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "-120%" }}
+            staggerDuration={0.02}
+            splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+            elementLevelClassName="font-bold text-gray-900"
+            transition={{ type: "spring", damping: 30, stiffness: 400 }}
+            rotationInterval={2000}
+          />
+        </div>
+      </div>
+      <div class="w-sm text-center md:w-2xl">
+        <p class="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
+          {t("hero.subtitle")}
+        </p>
+        <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-12">
+          {t("hero.description")}
+        </p>
+      </div>
     </div>
 
     <div
@@ -76,37 +98,44 @@ const socialLinks: {
         href="#projects"
         class="inline-flex items-center justify-center px-8 py-3 text-lg font-medium rounded-lg bg-gradient-to-r from-purple-600 to-green-600 hover:from-purple-700 hover:to-green-700 text-white shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:shadow-[0_0_30px_rgba(168,85,247,0.5)] transition-all duration-300"
       >
-        {t('hero.viewWork')}
+        {t("hero.viewWork")}
       </a>
       <a
         href="/cv.pdf"
         download
         class="inline-flex items-center justify-center px-8 py-3 text-lg font-medium rounded-lg border border-white/20 text-white hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] bg-transparent transition-all duration-300"
       >
-        {t('hero.downloadCV')}
+        {t("hero.downloadCV")}
       </a>
     </div>
 
     <div class="flex justify-center space-x-6 mb-12">
-      {socialLinks.map(({ href, label, icon }) => (
-        <a
-          href={href}
-          class={`group p-3 rounded-full border border-white/20 transition-all duration-300 ${
-            icon === 'github' 
-              ? 'hover:border-gray-400/50 hover:bg-gray-500/10 hover:shadow-[0_0_15px_rgba(156,163,175,0.4)]' 
-              : icon === 'linkedin' 
-              ? 'hover:border-blue-400/50 hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)]' 
-              : icon === 'mail'
-              ? 'hover:border-red-400/50 hover:bg-red-500/10 hover:shadow-[0_0_15px_rgba(239,68,68,0.4)]'
-              : ''
-          }`}
-          aria-label={label}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Icons icon={icon} size={24} brandColors={true} class="text-white" />
-        </a>
-      ))}
+      {
+        socialLinks.map(({ href, label, icon }) => (
+          <a
+            href={href}
+            class={`group p-3 rounded-full border border-white/20 transition-all duration-300 ${
+              icon === "github"
+                ? "hover:border-gray-400/50 hover:bg-gray-500/10 hover:shadow-[0_0_15px_rgba(156,163,175,0.4)]"
+                : icon === "linkedin"
+                  ? "hover:border-blue-400/50 hover:bg-blue-500/10 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)]"
+                  : icon === "mail"
+                    ? "hover:border-red-400/50 hover:bg-red-500/10 hover:shadow-[0_0_15px_rgba(239,68,68,0.4)]"
+                    : ""
+            }`}
+            aria-label={label}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Icons
+              icon={icon}
+              size={24}
+              brandColors={true}
+              class="text-white"
+            />
+          </a>
+        ))
+      }
     </div>
 
     <div class="animate-bounce">
@@ -116,94 +145,44 @@ const socialLinks: {
 </section>
 
 <style>
-.card {
-  /* color used to softly clip top and bottom of the .words container */
-  --bg-color: #111;
-  background-color: var(--bg-color);
-  padding: 1rem 2rem;
-  border-radius: 1.25rem;
-}
-.loader {
-  color: rgb(124, 124, 124);
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  font-size: 25px;
-  -webkit-box-sizing: content-box;
-  box-sizing: content-box;
-  height: 40px;
-  padding: 10px 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  border-radius: 8px;
-}
-
-.words {
-  overflow: hidden;
-  position: relative;
-}
-.words::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    var(--bg-color) 10%,
-    transparent 30%,
-    transparent 70%,
-    var(--bg-color) 90%
-  );
-  z-index: 20;
-}
-
-.word {
-  display: block;
-  height: 100%;
-  padding-left: 6px;
-  color: #956afa;
-  animation: spin_4991 6s infinite;
-}
-
-@keyframes spin_4991 {
-  10% {
-    -webkit-transform: translateY(-102%);
-    transform: translateY(-102%);
+  .card {
+    /* color used to softly clip top and bottom of the .words container */
+    --bg-color: #111;
+    background-color: var(--bg-color);
+    padding: 1rem 2rem;
+    border-radius: 1.25rem;
+  }
+  .loader {
+    color: rgb(124, 124, 124);
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 25px;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    height: 40px;
+    padding: 10px 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    border-radius: 8px;
   }
 
-  25% {
-    -webkit-transform: translateY(-100%);
-    transform: translateY(-100%);
+  .words {
+    overflow: hidden;
+    position: relative;
   }
-
-  35% {
-    -webkit-transform: translateY(-202%);
-    transform: translateY(-202%);
+  .words::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      var(--bg-color) 10%,
+      transparent 30%,
+      transparent 70%,
+      var(--bg-color) 90%
+    );
+    z-index: 20;
   }
-
-  50% {
-    -webkit-transform: translateY(-200%);
-    transform: translateY(-200%);
-  }
-
-  60% {
-    -webkit-transform: translateY(-302%);
-    transform: translateY(-302%);
-  }
-
-  75% {
-    -webkit-transform: translateY(-300%);
-    transform: translateY(-300%);
-  }
-
-  85% {
-    -webkit-transform: translateY(-402%);
-    transform: translateY(-402%);
-  }
-
-  100% {
-    -webkit-transform: translateY(-400%);
-    transform: translateY(-400%);
-  }
-}
 
   .animate-pulse {
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -214,7 +193,8 @@ const socialLinks: {
   }
 
   @keyframes pulse {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 1;
     }
     50% {
@@ -223,7 +203,8 @@ const socialLinks: {
   }
 
   @keyframes bounce {
-    0%, 100% {
+    0%,
+    100% {
       transform: translateY(0);
       animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
     }
