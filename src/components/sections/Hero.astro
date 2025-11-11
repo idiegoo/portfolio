@@ -2,7 +2,6 @@
 import Icons from "../Icons.astro";
 import { getLangFromUrl, useTranslations } from "../../i18n";
 import RotatingText from "../RotatingText";
-import { motion } from "motion/react";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -54,7 +53,6 @@ const socialLinks: {
           >
             <img
               loading="lazy"
-              fetchpriority="high"
               src="/images/profile.svg"
               alt="Diego Ramirez"
               class="w-full h-full object-cover"
@@ -75,7 +73,7 @@ const socialLinks: {
       </div>
 
       <!-- Content - Right side on large screens -->
-      <div class="flex-1 text-center lg:text-left order-2 lg:order-2 mb-8 w-full lg:w-auto">
+      <div class="flex-1 text-center lg:text-left order-2 lg:order-2 mb-8 w-full lg:w-auto lg:pt-8">
         <h1
           class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-purple-300 to-green-300 bg-clip-text text-transparent py-2 leading-tight"
         >
