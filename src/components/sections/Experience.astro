@@ -1,0 +1,162 @@
+---
+import { getLangFromUrl, useTranslations } from "../../i18n";
+import { marked } from "marked";
+import { experiencesData } from "../../data/experience";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const experiences = experiencesData[lang as keyof typeof experiencesData];
+---
+
+<section id="experience" class="py-20 relative overflow-hidden">
+  <!-- Background decorations -->
+  <div class="absolute inset-0 opacity-30">
+    <div class="absolute top-20 left-10 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 right-10 w-72 h-72 bg-green-500/20 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    <!-- Section Title -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white via-purple-300 to-green-300 bg-clip-text text-transparent">
+        {lang === "es" ? "Experiencia Profesional" : "Professional Experience"}
+      </h2>
+      <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+        {lang === "es"
+          ? "Mi trayectoria profesional construyendo soluciones innovadoras"
+          : "My journey building innovative solutions"}
+      </p>
+    </div>
+
+    <!-- Timeline -->
+    <div class="max-w-5xl mx-auto relative">
+      <!-- Vertical line -->
+      <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-purple-500 via-purple-400 to-green-500 hidden lg:block"></div>
+
+      {experiences.map((exp, index) => (
+        <div
+          class={`experience-item mb-12 lg:mb-20 relative opacity-0 translate-y-10 transition-all duration-700 delay-${index * 200}`}
+          data-animate="true"
+        >
+          <div class={`flex flex-col lg:flex-row items-center gap-8 ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
+            <!-- Content Card -->
+            <div class={`w-full lg:w-[calc(50%-2rem)] ${index % 2 === 0 ? 'lg:text-right' : 'lg:text-left'}`}>
+              <div class="group bg-gray-900/50 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-purple-400/30 transition-all duration-300 hover:shadow-[0_0_30px_rgba(168,85,247,0.2)] hover:scale-105">
+                <!-- Company & Period -->
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
+                  <h3 class="text-2xl font-bold text-white group-hover:text-purple-300 transition-colors">
+                    {exp.company}
+                  </h3>
+                  <span class="text-sm text-gray-400 bg-gray-800/50 px-3 py-1 rounded-full">
+                    {exp.period}
+                  </span>
+                </div>
+
+                <!-- Position -->
+                <h4 class="text-xl text-purple-400 font-semibold mb-3">
+                  {exp.position}
+                </h4>
+
+                <!-- Description -->
+                <p class="text-gray-300 mb-4 leading-relaxed" set:html={marked(exp.description)}></p>
+
+                <!-- Technologies -->
+                <div class="mt-2 flex flex-wrap gap-2 justify-start">
+                  {exp.technologies.map((tech) => (
+                    <span class="px-3 py-1 bg-purple-500/10 text-purple-300 rounded-lg text-sm border border-purple-500/20 hover:bg-purple-500/20 transition-colors">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                <!-- Work Type Badge -->
+                <div class="mt-4 inline-flex items-center gap-2 text-sm">
+                  {exp.type === "remote" && (
+                    <>
+                      <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                      <span class="text-green-400">{lang === "es" ? "Remoto" : "Remote"}</span>
+                    </>
+                  )}
+                  {exp.type === "hybrid" && (
+                    <>
+                      <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                      <span class="text-blue-400">{lang === "es" ? "Híbrido" : "Hybrid"}</span>
+                    </>
+                  )}
+                  {exp.type === "onsite" && (
+                    <>
+                      <div class="w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
+                      <span class="text-orange-400">{lang === "es" ? "Presencial" : "On-site"}</span>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <!-- Timeline Node -->
+            <div class="hidden lg:flex w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-green-500 items-center justify-center shadow-[0_0_20px_rgba(168,85,247,0.5)] relative z-10 group-hover:scale-110 transition-transform">
+              <div class="w-8 h-8 rounded-full bg-gray-900 flex items-center justify-center">
+                <div class="w-3 h-3 rounded-full bg-gradient-to-br from-purple-400 to-green-400"></div>
+              </div>
+            </div>
+
+            <!-- Empty space for alternating layout -->
+            <div class="hidden lg:block w-[calc(50%-2rem)]"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-16">
+      <a
+        href="#contact"
+        class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-green-600 hover:from-purple-700 hover:to-green-700 text-white font-semibold rounded-lg shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:shadow-[0_0_30px_rgba(168,85,247,0.5)] transition-all duration-300 group"
+      >
+        <span>{lang === "es" ? "¿Trabajamos juntos?" : "Let's Work Together"}</span>
+        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Intersection Observer for scroll animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.remove('opacity-0', 'translate-y-10');
+        entry.target.classList.add('opacity-100', 'translate-y-0');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.experience-item').forEach((item) => {
+    observer.observe(item);
+  });
+</script>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .experience-item {
+    animation-fill-mode: forwards;
+  }
+</style>

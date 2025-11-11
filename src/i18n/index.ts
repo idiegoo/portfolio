@@ -9,6 +9,7 @@ export const ui = {
   en: {
     'nav.home': 'Home',
     'nav.about': 'About',
+    'nav.experience': 'Experience',
     'nav.projects': 'Projects',
     'nav.contact': 'Contact',
     'hero.title': 'Diego Ramirez',
@@ -43,6 +44,7 @@ export const ui = {
   es: {
     'nav.home': 'Inicio',
     'nav.about': 'Acerca de',
+    'nav.experience': 'Experiencia',
     'nav.projects': 'Proyectos',
     'nav.contact': 'Contacto',
     'hero.title': 'Diego Ramirez',
