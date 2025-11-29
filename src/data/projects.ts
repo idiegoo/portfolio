@@ -1,13 +1,13 @@
 export const projects = {
   en: [
     {
-      id: 'ecommerce-platform',
-      title: 'E-commerce Platform',
-      description: 'A modern e-commerce platform built with React, Node.js, and MongoDB. Features include user authentication, payment integration, and admin dashboard.',
-      image: '/images/project-1.svg',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-      liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com/idiegoo/ecommerce-platform',
+      id: 'coverit',
+      title: 'Coverit',
+      description: 'An album cover generator that uses the Spotify SDK to create custom artwork from artist name, album title, and tracklist. Allows users to download their generated covers as PDF.',
+      image: '/images/project1.png',
+      technologies: ['React', 'TypeScript', 'Next.js', 'TailwindCSS'],
+      liveUrl: 'https://coverit.vercel.app',
+      githubUrl: 'https://github.com/idiegoo/albumcovergenerator',
     },
     {
       id: 'task-management-app',
@@ -30,13 +30,13 @@ export const projects = {
   ],
   es: [
     {
-      id: 'ecommerce-platform',
-      title: 'Plataforma E-commerce',
-      description: 'Una plataforma de comercio electrónico moderna construida con React, Node.js y MongoDB. Incluye autenticación de usuarios, integración de pagos y panel de administración.',
-      image: '/images/project-1.svg',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-      liveUrl: 'https://example.com',
-      githubUrl: 'https://github.com/idiegoo/ecommerce-platform',
+      id: 'coverit',
+      title: 'Coverit',
+      description: 'Un generador de album cover art que utiliza el SDK de Spotify para crear portadas personalizadas basadas en el nombre del artista, título del álbum y el tracklist. Permite descargar el archivo en PDF.',
+      image: '/images/project1.png',
+      technologies: ['React', 'TypeScript', 'Next.js', 'TailwindCSS'],
+      liveUrl: 'https://coverit.vercel.app',
+      githubUrl: 'https://github.com/idiegoo/albumcovergenerator',
     },
     {
       id: 'task-management-app',
