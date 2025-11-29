@@ -27,6 +27,7 @@ const socialLinks: {
 >
   <!-- Animated background effects -->
   <div class="absolute inset-0">
+    <!-- (Background image removed; volcano image used as profile image instead) -->
     <div
       class="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"
     >
@@ -48,16 +49,17 @@ const socialLinks: {
       <!-- Profile Image - Top on mobile, left on large screens -->
       <div class="mt-8 lg:mt-0 flex-shrink-0 order-1 lg:order-1 flex justify-center lg:justify-start w-full lg:w-auto">
         <div class="relative">
-          <div
-            class="w-48 sm:w-64 md:w-80 h-48 sm:h-64 md:h-80 rounded-full overflow-hidden border-4 border-purple-400/20 shadow-[0_0_40px_rgba(168,85,247,0.3)]"
-          >
-            <img
-              loading="lazy"
-              src="/images/profile.svg"
-              alt="Diego Aguirre"
-              class="w-full h-full object-cover"
-              loading="lazy"
-            />
+          <!-- Outer gradient ring wrapper -->
+          <div class="rounded-full p-1 bg-gradient-to-br from-purple-500/60 to-green-400/60 shadow-[0_0_40px_rgba(168,85,247,0.25)] hover:scale-105 transition-transform duration-300 inline-block">
+            <!-- Inner image container, keeps original sizing -->
+            <div class="w-48 sm:w-64 md:w-80 h-48 sm:h-64 md:h-80 rounded-full overflow-hidden border-2 border-white/10 bg-black">
+              <img
+                loading="lazy"
+                src="/images/playa.webp"
+                alt="Volcán - Fondo 1x1"
+                class="w-full h-full object-cover"
+              />
+            </div>
           </div>
           <!-- Decorative elements -->
           <div
