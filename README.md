@@ -1,4 +1,4 @@
-# Diego Ramirez - Portfolio
+# Diego Aguirre - Portfolio
 
 A modern, responsive portfolio website built with Astro, React, and Tailwind CSS featuring smooth animations, internationalization (English/Spanish), and dynamic content.
 
@@ -180,9 +180,9 @@ Special considerations:
 
 ## 👨‍💻 Author
 
-**Diego Ramirez**
+**Diego Aguirre**
 - GitHub: [@idiegoo](https://github.com/idiegoo)
-- LinkedIn: [Diego Ramirez](https://linkedin.com/in/idiegoo)
+- LinkedIn: [Diego Aguirre](https://linkedin.com/in/idiegoo)
 - Email: idiegocs9@gmail.com
 
 ## 📄 License
