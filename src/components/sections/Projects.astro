@@ -60,15 +60,17 @@ const projectsData = projects[lang];
                 <Icons icon="external-link" size={16} />
                 {t('projects.viewProject')}
               </a>
-              <a
-                href={project.githubUrl}
-                class="project-link border border-gray-700 hover:bg-gray-800"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Icons icon="github" size={16} />
-                {t('projects.viewCode')}
-              </a>
+              {project.githubUrl && (
+                <a
+                  href={project.githubUrl}
+                  class="project-link border border-gray-700 hover:bg-gray-800"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Icons icon="github" size={16} />
+                  {t('projects.viewCode')}
+                </a>
+              )}
             </div>
           </div>
         </div>
