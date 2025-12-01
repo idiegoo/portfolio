@@ -7,7 +7,7 @@ const t = useTranslations(lang);
 const skillsData = skills[lang];
 ---
 
-<section id="about" class="py-20 px-4">
+<section id="about" class="py-8 md:py-0 px-4">
   <div class="max-w-6xl mx-auto">
     <div class="text-center mb-16">
       <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-green-400 bg-clip-text text-transparent">
@@ -15,26 +15,7 @@ const skillsData = skills[lang];
       </h2>
     </div>
 
-    <div class="grid lg:grid-cols-2 gap-12 items-center">
-      <!-- Profile Image -->
-      <div class="flex justify-center lg:justify-start">
-        <div class="relative">
-          <div class="w-80 h-80 rounded-full overflow-hidden border-4 border-purple-400/20 shadow-[0_0_40px_rgba(168,85,247,0.3)]">
-            <img
-              loading="lazy"
-              fetchpriority="high"
-              src="/images/profile.svg" 
-              alt="Diego Aguirre" 
-              class="w-full h-full object-cover"
-              loading="lazy"
-            />
-          </div>
-          <!-- Decorative elements -->
-          <div class="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-br from-purple-400 to-green-400 rounded-full opacity-20 animate-pulse"></div>
-          <div class="absolute -bottom-6 -left-6 w-16 h-16 bg-gradient-to-tr from-green-400 to-purple-400 rounded-full opacity-30 animate-pulse" style="animation-delay: 1s;"></div>
-        </div>
-      </div>
-
+    <div class="grid gap-12 items-center">
       <!-- About Content -->
       <div class="space-y-6">
         <p set:html={t('about.description')} class="text-lg text-gray-400 leading-relaxed mx-2">
