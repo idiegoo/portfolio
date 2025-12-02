@@ -1,4 +1,6 @@
 {
+  "buildCommand": "pnpm build",
+  "framework": "astro",
   "redirects": [
     {
       "source": "/",
