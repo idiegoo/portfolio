@@ -13,13 +13,18 @@ const redis = new Redis({
   token: import.meta.env.UPSTASH_REDIS_REST_TOKEN,
 });
 
-// rate limiter: 3 req per 60 seconds per IP
+// Rate limiter: 2 requests per 60 seconds per IP
 const ratelimit = new Ratelimit({
   redis,
-  limiter: Ratelimit.slidingWindow(3, '60 s'),
+  limiter: Ratelimit.slidingWindow(2, '60 s'),
   analytics: true,
   prefix: 'ratelimit:contact',
 });
+
+// Penalty tracking for repeated violations
+const PENALTY_PREFIX = 'penalty:contact:';
+const PENALTY_MULTIPLIER = 2; // Double the timeout each time
+const MAX_PENALTY_MINUTES = 60; // Max 1 hour penalty
 
 // Sanitize function to prevent XSS
 function sanitizeHtml(str: string): string {
@@ -41,21 +46,68 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     // Prefer Vercel's IP header, then x-real-ip, then x-forwarded-for, fallback to clientAddress
     const ip = vercelIp || realIp || forwardedFor?.split(',')[0].trim() || clientAddress || 'unknown';
 
+    // Check if IP is currently under penalty (timeout)
+    const penaltyKey = `${PENALTY_PREFIX}${ip}`;
+    const penaltyData = await redis.get<{ until: number; violations: number }>(penaltyKey);
+    
+    if (penaltyData && Date.now() < penaltyData.until) {
+      const waitTime = Math.ceil((penaltyData.until - Date.now()) / 1000);
+      const waitMinutes = Math.ceil(waitTime / 60);
+      
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message: `Too many violations. You are temporarily blocked. Please try again in ${waitMinutes} minute${waitMinutes > 1 ? 's' : ''}.`,
+          penaltyInfo: {
+            violations: penaltyData.violations,
+            waitTime,
+            unblockAt: new Date(penaltyData.until).toISOString(),
+          },
+        }),
+        {
+          status: 429,
+          headers: {
+            'Content-Type': 'application/json',
+            'Retry-After': waitTime.toString(),
+          },
+        }
+      );
+    }
+
     // Check rate limit with Upstash Redis
     const { success, limit, remaining, reset } = await ratelimit.limit(ip);
 
     if (!success) {
       const resetDate = new Date(reset);
-      const waitTime = Math.ceil((reset - Date.now()) / 1000);
+      
+      // Track violations and apply incremental penalty
+      const currentViolations = penaltyData?.violations || 0;
+      const newViolations = currentViolations + 1;
+      
+      // Calculate penalty time: 1 min * (2^violations), capped at MAX_PENALTY_MINUTES
+      const penaltyMinutes = Math.min(
+        1 * Math.pow(PENALTY_MULTIPLIER, newViolations),
+        MAX_PENALTY_MINUTES
+      );
+      const penaltyUntil = Date.now() + (penaltyMinutes * 60 * 1000);
+      
+      // Store penalty in Redis with expiration
+      await redis.set(
+        penaltyKey,
+        { until: penaltyUntil, violations: newViolations },
+        { ex: Math.ceil(penaltyMinutes * 60) }
+      );
       
       return new Response(
         JSON.stringify({
           success: false,
-          message: `Too many requests. Please try again in ${waitTime} seconds.`,
+          message: `Too many requests. ${newViolations > 1 ? `Violation #${newViolations}. ` : ''}You've been temporarily blocked for ${penaltyMinutes} minute${penaltyMinutes > 1 ? 's' : ''}.`,
           rateLimitInfo: {
             limit,
             remaining: 0,
             reset: resetDate.toISOString(),
+            violations: newViolations,
+            penaltyMinutes,
           },
         }),
         {
@@ -65,10 +117,15 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
             'X-RateLimit-Limit': limit.toString(),
             'X-RateLimit-Remaining': '0',
             'X-RateLimit-Reset': reset.toString(),
-            'Retry-After': waitTime.toString(),
+            'Retry-After': (penaltyMinutes * 60).toString(),
           },
         }
       );
+    }
+
+    // Successful request - clear penalty if exists
+    if (penaltyData) {
+      await redis.del(penaltyKey);
     }
 
     // Parse and validate request body with Zod
