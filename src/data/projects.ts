@@ -42,7 +42,7 @@ export const projects = {
         "Framer Motion",
       ],
       liveUrl: "https://idiegoo.vercel.app",
-      githubUrl: "https://github.com/idiegoo/portfolio-astro",
+      githubUrl: "https://github.com/idiegoo/portfolio",
     },
   ],
   es: [
@@ -88,7 +88,7 @@ export const projects = {
         "Framer Motion",
       ],
       liveUrl: "https://idiegoo.vercel.app",
-      githubUrl: "https://github.com/idiegoo/portfolio-astro",
+      githubUrl: "https://github.com/idiegoo/portfolio",
     },
   ],
 } as const;
