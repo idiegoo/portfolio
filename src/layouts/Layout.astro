@@ -1,12 +1,91 @@
+---
+interface Props {
+	lang?: 'en' | 'es';
+	title?: string;
+	description?: string;
+	image?: string;
+	canonicalURL?: string;
+}
+
+const {
+	lang = 'en',
+	title = lang === 'es' 
+		? 'Diego Aguirre - Desarrollador Full Stack | Portfolio'
+		: 'Diego Aguirre - Full Stack Developer | Portfolio',
+	description = lang === 'es'
+		? 'Portfolio de Diego Aguirre, Desarrollador Full Stack especializado en React, TypeScript, Node.js y tecnologías web modernas. Creando soluciones innovadoras y experiencias digitales excepcionales.'
+		: 'Portfolio of Diego Aguirre, Full Stack Developer specializing in React, TypeScript, Node.js and modern web technologies. Building innovative solutions and exceptional digital experiences.',
+	image = '/og-image.png',
+	canonicalURL = new URL(Astro.url.pathname, Astro.site),
+} = Astro.props;
+
+const siteURL = Astro.site || 'https://idiegoo.vercel.app';
+const ogImageURL = new URL(image, siteURL).toString();
+---
+
 <!doctype html>
-<html lang="en" class="dark">
+<html lang={lang} class="dark">
 	<head>
+		<!-- Basic Meta Tags -->
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Diego Aguirre - Full Stack Developer</title>
-		<meta name="description" content="Portfolio of Diego Aguirre, Full Stack Developer specializing in modern web technologies and creative solutions." />
+		
+		<!-- Primary Meta Tags -->
+		<title>{title}</title>
+		<meta name="title" content={title} />
+		<meta name="description" content={description} />
+		<meta name="author" content="Diego Aguirre" />
+		<link rel="canonical" href={canonicalURL} />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImageURL} />
+		<meta property="og:locale" content={lang === 'es' ? 'es_ES' : 'en_US'} />
+		<meta property="og:site_name" content="Diego Aguirre Portfolio" />
+		
+		<!-- Alternate Languages -->
+		<link rel="alternate" hreflang="en" href={`${siteURL}/en`} />
+		<link rel="alternate" hreflang="es" href={`${siteURL}/es`} />
+		<link rel="alternate" hreflang="x-default" href={`${siteURL}/en`} />
+		
+		<!-- Additional SEO -->
+		<meta name="robots" content="index, follow" />
+		<meta name="googlebot" content="index, follow" />
+		<meta name="theme-color" content="#0a0a0a" />
+		
+		<!-- Structured Data (JSON-LD) -->
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "WebSite",
+			"name": "Diego Aguirre Portfolio",
+			"url": siteURL,
+			"image": ogImageURL,
+			"jobTitle": lang === 'es' ? 'Desarrollador Full Stack' : 'Full Stack Developer',
+			"description": description,
+			"sameAs": [
+				"https://github.com/idiegoo",
+				"https://linkedin.com/in/idiegoo"
+			],
+			"knowsAbout": [
+				"React",
+				"TypeScript",
+				"Node.js",
+				"Next.js",
+				"JavaScript",
+        "Astro",
+				"Web Development",
+				"Full Stack Development"
+			],
+			"alumniOf": {
+				"@type": "EducationalOrganization",
+				"name": "Pontificia Universidad Católica de Chile"
+			}
+		})} />
 	</head>
 	<body class="antialiased font-sans">
 		<slot />

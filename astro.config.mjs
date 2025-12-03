@@ -5,6 +5,7 @@ import react from "@astrojs/react";
 import vercel from "@astrojs/vercel";
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://idiegoo.vercel.app',
   output: 'server',
   vite: {
     plugins: [tailwindcss()],
