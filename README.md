@@ -29,8 +29,7 @@ A modern, responsive portfolio website built with Astro, React, and Tailwind CSS
 ### Styling & Animation
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) 4.1.11
 - **Animations**: [Framer Motion](https://www.framer.com/motion/) (motion 12.23.24)
-- **UI Components**: Custom components with `class-variance-authority`
-- **Fonts**: [Inter Variable](https://fonts.google.com/specimen/Inter), [JetBrains Mono](https://www.jetbrains.com/lp/mono/), Figtree, Roboto
+- **Fonts**: [Inter Variable](https://fonts.google.com/specimen/Inter), [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
 
 ### Form & Validation
 - **Form Management**: [React Hook Form](https://react-hook-form.com/) 7.67.0
@@ -52,8 +51,9 @@ A modern, responsive portfolio website built with Astro, React, and Tailwind CSS
 1. **Hero**: Introduction with animated rotating text badge, profile image, and call-to-action buttons
 2. **About**: Personal description, categorized skills (Frontend, Backend, Tools), and responsive profile image
 3. **Experience**: Professional experience timeline with alternating layout, scroll animations, technology badges, and markdown-formatted descriptions
-4. **Projects**: Featured projects with technologies, descriptions, and links
-5. **Contact**: Interactive contact form with real-time validation, toast notifications, and social media links
+4. **Education**: Academic background section with timeline design
+5. **Projects**: Featured projects with technologies, descriptions, and links
+6. **Contact**: Interactive contact form with real-time validation, toast notifications, and social media links
 
 ## 🌐 Internationalization
 
