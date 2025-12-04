@@ -57,11 +57,32 @@ A modern, responsive portfolio website built with Astro, React, and Tailwind CSS
 
 ## 🌐 Internationalization
 
-The portfolio supports two languages with complete translations:
-- **English** (`/en`)
+The portfolio uses Astro's built-in i18n routing with support for two languages:
+- **English** (`/` - default locale, no prefix)
 - **Spanish** (`/es`)
 
-Language strings are managed in `src/i18n/index.ts`. All content including navigation, sections, and data files are fully bilingual.
+### URL Structure
+- English version: `https://idiegoo.vercel.app/`
+- Spanish version: `https://idiegoo.vercel.app/es`
+
+### Configuration
+The i18n setup in `astro.config.mjs`:
+```javascript
+i18n: {
+  locales: ['en', 'es'],
+  defaultLocale: 'en',
+  routing: {
+    prefixDefaultLocale: false, // English URLs have no /en prefix
+  },
+}
+```
+
+### Features
+- **Automatic language detection**: Root path (`/`) redirects based on browser language
+- **SEO optimized**: Proper `hreflang` tags for search engines
+- **Sitemap**: XML sitemap with language alternatives
+- **Translations**: Complete translations in `src/i18n/index.ts`
+- **Data files**: Bilingual content in experience, projects, and skills
 
 ## ✨ Key Components
 

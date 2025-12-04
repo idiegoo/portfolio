@@ -1,0 +1,12 @@
+---
+// Fast redirect based on browser language preference
+const acceptLanguage = Astro.request.headers.get('accept-language') || '';
+
+// Parse accept-language header (format: "es-ES,es;q=0.9,en;q=0.8")
+// Extract first language code
+const firstLang = acceptLanguage.split(',')[0].split('-')[0].toLowerCase().trim();
+
+const preferredLang = firstLang === 'es' ? 'es' : 'en';
+
+return Astro.redirect(preferredLang === 'es' ? '/es' : '/en', 302);
+---

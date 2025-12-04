@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://idiegoo.vercel.app/sitemap-index.xml
+Sitemap: https://idiegoo.vercel.app/sitemap.xml
 
 # Crawl-delay for bots
 Crawl-delay: 1
