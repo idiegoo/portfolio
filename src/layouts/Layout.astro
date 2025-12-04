@@ -22,9 +22,10 @@ const {
 const siteURL = Astro.site || 'https://idiegoo.vercel.app';
 const ogImageURL = new URL(image, siteURL).toString();
 
-// i18n URLs
-const enURL = `${siteURL}`;
-const esURL = `${siteURL}es`;
+// i18n URLs - ensure proper formatting with trailing slashes
+const baseURL = siteURL.toString().endsWith('/') ? siteURL.toString() : `${siteURL}/`;
+const enURL = baseURL;
+const esURL = `${baseURL}es`;
 ---
 
 <!doctype html>
@@ -87,8 +88,8 @@ const esURL = `${siteURL}es`;
 				"Next.js",
 				"JavaScript",
         "Astro",
-				"Web Development",
-				"Full Stack Development"
+        lang === 'es' ? "Desarrollo Web" : "Web Development",
+        lang === 'es' ? "Desarrollo Full Stack" : "Full Stack Development"
 			],
 			"alumniOf": {
 				"@type": "EducationalOrganization",
