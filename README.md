@@ -269,7 +269,7 @@ Special considerations:
 **Diego Aguirre**
 - GitHub: [@idiegoo](https://github.com/idiegoo)
 - LinkedIn: [Diego Aguirre](https://linkedin.com/in/idiegoo)
-- Email: idiegocs9@gmail.com
+- Email: idiegoo.aguirre@gmail.com
 
 ## 📄 License
 
