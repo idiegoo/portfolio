@@ -1,12 +1,33 @@
----
-// Fast redirect based on browser language preference
-const acceptLanguage = Astro.request.headers.get('accept-language') || '';
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow" />
 
-// Parse accept-language header (format: "es-ES,es;q=0.9,en;q=0.8")
-// Extract first language code
-const firstLang = acceptLanguage.split(',')[0].split('-')[0].toLowerCase().trim();
+    <!-- Hreflang correcto → obligatorio si usas /en y /es -->
+    <link rel="alternate" hreflang="en" href="https://idiegoo.vercel.app/en" />
+    <link rel="alternate" hreflang="es" href="https://idiegoo.vercel.app/es" />
+    <link rel="alternate" hreflang="x-default" href="https://idiegoo.vercel.app/" />
 
-const preferredLang = firstLang === 'es' ? 'es' : 'en';
+    <!-- Redirección segura (client-side, antes del primer paint) -->
+    <script>
+      try {
+        const lang = navigator.language?.slice(0, 2).toLowerCase();
+        const target = lang === "es" ? "/es" : "/en";
 
-return Astro.redirect(preferredLang === 'es' ? '/es' : '/en', 302);
----
+        // Solo redirige si no está ya en el idioma correcto
+        if (!location.pathname.startsWith(target)) {
+          location.replace(target);
+        }
+      } catch (e) {
+        /* fallback silencioso */
+      }
+    </script>
+
+    <!-- Evita cualquier flicker antes de redirigir -->
+    <style>
+      body { visibility: hidden; }
+    </style>
+  </head>
+  <body></body>
+</html>
