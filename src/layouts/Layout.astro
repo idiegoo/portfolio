@@ -2,6 +2,7 @@
 interface Props {
 	lang?: 'en' | 'es';
 	title?: string;
+	siteName?: string;
 	description?: string;
 	image?: string;
 	canonicalURL?: string;
@@ -10,12 +11,13 @@ interface Props {
 const {
 	lang = 'en',
 	title = lang === 'es'
-		? 'Diego Aguirre - Desarrollador Full Stack | Portfolio'
+		? 'Diego Aguirre - Desarrollador Full Stack | Portafolio'
 		: 'Diego Aguirre - Full Stack Developer | Portfolio',
+  siteName = lang === 'es' ? 'Diego Aguirre Portafolio' : 'Diego Aguirre Portfolio',
 	description = lang === 'es'
 		? 'Portfolio de Diego Aguirre, Desarrollador Full Stack especializado en React, TypeScript, Node.js y tecnologías web modernas. Creando soluciones innovadoras y experiencias digitales excepcionales.'
 		: 'Portfolio of Diego Aguirre, Full Stack Developer specializing in React, TypeScript, Node.js and modern web technologies. Building innovative solutions and exceptional digital experiences.',
-	image = '/og-image.png',
+  image = '/images/portfolio.webp',
 	canonicalURL = new URL(Astro.url.pathname, Astro.site),
 } = Astro.props;
 
@@ -59,7 +61,7 @@ const esURL = `${baseURL}es`;
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={ogImageURL} />
 		<meta property="og:locale" content={lang === 'es' ? 'es_ES' : 'en_US'} />
-		<meta property="og:site_name" content="Diego Aguirre Portfolio" />
+		<meta property="og:site_name" content={siteName} />
 		
 		<!-- Alternate Languages -->
 		<link rel="alternate" hreflang="en" href={enURL} />
@@ -75,7 +77,7 @@ const esURL = `${baseURL}es`;
 		<script type="application/ld+json" set:html={JSON.stringify({
 			"@context": "https://schema.org",
 			"@type": "WebSite",
-			"name": "Diego Aguirre Portfolio",
+			"name": siteName,
 			"url": siteURL,
 			"image": ogImageURL,
 			"jobTitle": lang === 'es' ? 'Desarrollador Full Stack' : 'Full Stack Developer',
