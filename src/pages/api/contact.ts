@@ -4,6 +4,9 @@ import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
 import { contactSchema, type ContactFormData } from '../../lib/validation';
 
+// Prevent prerendering - this endpoint needs to run on-demand
+export const prerender = false;
+
 /*---------- Contact form validation at server side ----------*/
 
 const resend = new Resend(import.meta.env.RESEND_API_KEY);
