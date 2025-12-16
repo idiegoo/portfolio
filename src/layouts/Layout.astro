@@ -1,4 +1,6 @@
 ---
+import Analytics from '@vercel/analytics/astro';
+
 interface Props {
 	lang?: 'en' | 'es';
 	title?: string;
@@ -101,6 +103,7 @@ const esURL = `${baseURL}es`;
 				"name": "Pontificia Universidad Católica de Chile"
 			}
 		})} />
+		<Analytics />
 	</head>
 	<body class="antialiased font-sans">
 		<slot />
