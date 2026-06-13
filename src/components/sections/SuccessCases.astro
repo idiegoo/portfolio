@@ -1,0 +1,142 @@
+---
+import { getLangFromUrl } from '../../i18n';
+import { successCases } from '../../data/success-cases';
+
+const lang = getLangFromUrl(Astro.url);
+const cases = successCases[lang as keyof typeof successCases];
+
+const labels = {
+  en: {
+    title: 'Success Cases',
+    subtitle: 'Real problems solved for real clients',
+    problem: 'Challenge',
+    solution: 'Solution',
+    result: 'Result',
+  },
+  es: {
+    title: 'Casos de Éxito',
+    subtitle: 'Problemas reales resueltos para clientes reales',
+    problem: 'Desafío',
+    solution: 'Solución',
+    result: 'Resultado',
+  },
+};
+
+const colors = [
+  { ring: 'ring-amber-500/30', border: 'border-amber-500/40', text: 'text-amber-400', glow: 'bg-amber-500' },
+  { ring: 'ring-cyan-500/30', border: 'border-cyan-500/40', text: 'text-cyan-400', glow: 'bg-cyan-500' },
+  { ring: 'ring-fuchsia-500/30', border: 'border-fuchsia-500/40', text: 'text-fuchsia-400', glow: 'bg-fuchsia-500' },
+];
+
+const l = labels[lang as keyof typeof labels];
+---
+
+<section id="success-cases" class="py-24 px-4 relative overflow-hidden">
+  <!-- Background -->
+  <div class="absolute inset-0">
+    <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-purple-600/8 rounded-full blur-[130px]"></div>
+    <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-cyan-600/6 rounded-full blur-[130px]"></div>
+  </div>
+
+  <div class="max-w-4xl mx-auto relative z-10">
+    <!-- Header -->
+    <div class="text-center mb-24 stretch-header opacity-0 translate-y-4" data-animate="true">
+      <span class="inline-block px-3 py-1 text-[10px] font-black tracking-[0.35em] uppercase bg-purple-500/15 text-purple-300 rounded-full border border-purple-500/25 mb-6">
+        {lang === 'es' ? 'RESULTADOS' : 'RESULTS'}
+      </span>
+      <h2 class="text-5xl md:text-7xl font-black mb-4 leading-none">
+        <span class="bg-gradient-to-r from-white via-purple-200 to-cyan-300 bg-clip-text text-transparent">{l.title}</span>
+      </h2>
+      <p class="text-gray-500 text-lg">{l.subtitle}</p>
+    </div>
+
+    <!-- Cases -->
+    <div class="space-y-32">
+      {cases.map((c, index) => {
+        const col = colors[index % colors.length];
+        return (
+          <div class={`case-item case-item-${index} opacity-0`} data-animate="true">
+            <div class="relative">
+              <!-- Watermark number -->
+              <div class={`absolute -top-12 -left-4 md:-left-12 text-[8rem] md:text-[12rem] font-black leading-none select-none pointer-events-none opacity-[0.04] ${col.text}`}>
+                {String(index + 1).padStart(2, '0')}
+              </div>
+
+              <div class="relative">
+                <!-- Client & Category -->
+                <div class="flex flex-wrap items-baseline gap-3 mb-8">
+                  <span class={`text-5xl md:text-6xl font-black ${col.text} leading-none`}>
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <div>
+                    <span class={`inline-block px-2.5 py-0.5 text-[10px] font-black ${col.text} border ${col.border} rounded-full uppercase tracking-[0.2em] mb-2`}>
+                      {c.category}
+                    </span>
+                    <h3 class="text-2xl md:text-3xl font-black text-white">
+                      {c.client}
+                    </h3>
+                  </div>
+                </div>
+
+                <!-- Flow: Problem → Solution → Result -->
+                <div class="grid md:grid-cols-3 gap-0">
+                  <div class={`relative border-t ${col.border} py-6 md:border-t-0 md:border-r md:pr-8 md:pt-0`}>
+                    <span class="inline-block text-[10px] font-black text-gray-600 uppercase tracking-[0.25em] mb-4">{l.problem}</span>
+                    <p class="text-gray-400 leading-relaxed">{c.problem}</p>
+                  </div>
+
+                  <div class={`relative border-t ${col.border} py-6 md:border-t-0 md:border-r md:px-8 md:pt-0`}>
+                    <span class={`inline-block text-[10px] font-black ${col.text} uppercase tracking-[0.25em] mb-4`}>{l.solution}</span>
+                    <p class="text-gray-300 leading-relaxed">{c.solution}</p>
+                  </div>
+
+                  <div class={`relative border-t ${col.border} py-6 md:border-t-0 md:pl-8 md:pt-0`}>
+                    <span class="inline-block text-[10px] font-black text-emerald-400 uppercase tracking-[0.25em] mb-4">{l.result}</span>
+                    <p class="text-gray-200 leading-relaxed font-medium">{c.result}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  @reference "tailwindcss";
+
+  @keyframes slideInUp {
+    from { opacity: 0; transform: translateY(60px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .stretch-header.is-visible {
+    animation: slideInUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .case-item.is-visible {
+    animation: slideInUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+</style>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+
+  document.querySelectorAll('.case-item, .stretch-header').forEach((item) => {
+    observer.observe(item);
+  });
+</script>

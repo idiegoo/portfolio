@@ -8,7 +8,8 @@ export const defaultLang = 'en';
 export const ui = {
   en: {
     'nav.home': 'Home',
-    'nav.about': 'About',
+    'nav.success': 'Success Cases',
+    'nav.skills': 'Skills',
     'nav.experience': 'Experience',
     'nav.education': 'Education',
     'nav.projects': 'Projects',
@@ -45,7 +46,8 @@ export const ui = {
   },
   es: {
     'nav.home': 'Inicio',
-    'nav.about': 'Acerca de',
+    'nav.success': 'Casos de Éxito',
+    'nav.skills': 'Habilidades',
     'nav.experience': 'Experiencia',
     'nav.education': 'Educación',
     'nav.projects': 'Proyectos',
@@ -63,7 +65,7 @@ export const ui = {
     'hero.loader.solutions': 'soluciones',
     'hero.cvLink': '/cv-español.pdf',
     'about.title': 'Acerca de Mí',
-    'about.description': 'He estado interesado en la tecnología y computadores desde que era un niño, cuando experimentaba con la <i>redstone</i> en Minecraft. A los 15 años, comencé a aprender lo básico de desarrollo web, marcando el inicio de mi viaje en este mundo. <br>A lo largo de los años, he ampliado mis habilidades y conocimientos, especializándome en tecnologías modernas para crear soluciones adaptables, funcionales y fáciles de usar.',
+    'about.description': 'Desarrollo soluciones digitales confiables con enfoque en automatizaciones y aplicaciones en el entorno web adaptables a las necesidades de los usuarios.',
     'about.skills': 'Habilidades y Tecnologías',
     'projects.title': 'Proyectos Destacados',
     'projects.viewProject': 'Ver Proyecto',

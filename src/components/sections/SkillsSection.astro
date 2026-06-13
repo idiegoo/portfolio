@@ -1,0 +1,64 @@
+---
+import { getLangFromUrl } from '../../i18n';
+import { skills } from '../../data/skills';
+
+const lang = getLangFromUrl(Astro.url);
+const skillsData = skills[lang];
+
+const titles = {
+  en: 'Skills & Technologies',
+  es: 'Habilidades y Tecnologías',
+};
+---
+
+<section id="skills" class="py-20 px-4 bg-gray-900/50">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-green-400 bg-clip-text text-transparent">
+        {titles[lang as keyof typeof titles]}
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="skill-category bg-gray-900/60 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-purple-400/30 transition-all duration-300">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4">{skillsData.frontend.title}</h3>
+        <div class="flex flex-wrap gap-2">
+          {skillsData.frontend.items.map((skill) => (
+            <span class="skill-tag bg-purple-500/10 text-purple-400 border-purple-400/20">
+              {skill}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div class="skill-category bg-gray-900/60 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-green-400/30 transition-all duration-300">
+        <h3 class="text-lg font-semibold text-green-400 mb-4">{skillsData.backend.title}</h3>
+        <div class="flex flex-wrap gap-2">
+          {skillsData.backend.items.map((skill) => (
+            <span class="skill-tag bg-green-500/10 text-green-400 border-green-400/20">
+              {skill}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div class="skill-category bg-gray-900/60 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-blue-400/30 transition-all duration-300">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4">{skillsData.tools.title}</h3>
+        <div class="flex flex-wrap gap-2">
+          {skillsData.tools.items.map((skill) => (
+            <span class="skill-tag bg-blue-500/10 text-blue-400 border-blue-400/20">
+              {skill}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @reference "tailwindcss";
+  .skill-tag {
+    @apply px-3 py-1 rounded-full text-sm font-medium border transition-all duration-300 hover:scale-110;
+  }
+</style>
