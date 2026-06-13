@@ -18,6 +18,7 @@ export const skills = {
         "Express",
         "Docker",
         "Python",
+        "SQL",
         "PostgreSQL",
         "Supabase",
         "MongoDB",
@@ -28,7 +29,7 @@ export const skills = {
     },
     tools: {
       title: "Tools & Others",
-      items: ["Git", "Linux", "N8N"],
+      items: ["Git", "Linux", "N8N", "OpenCode", "Claude Code"],
     },
   },
   es: {
@@ -50,6 +51,7 @@ export const skills = {
         "Express",
         "Docker",
         "Python",
+        "SQL",
         "PostgreSQL",
         "Supabase",
         "MongoDB",
@@ -60,7 +62,7 @@ export const skills = {
     },
     tools: {
       title: "Herramientas y Otros",
-      items: ["Git", "Linux", "N8N"],
+      items: ["Git", "Linux", "N8N", "OpenCode", "Claude Code"],
     },
   },
 } as const;
