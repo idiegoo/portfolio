@@ -5,7 +5,7 @@ export const successCases = {
       client: "Autonomas.cl & Emisolve.cl",
       category: "Customer Service Automation",
       problem:
-        "Their support team was drowning in repetitive messages across Instagram, Facebook, and WhatsApp — slow replies, frustrated customers.",
+        "Their support team was drowning in repetitive messages across Instagram, Facebook, and WhatsApp slow replies, frustrated customers.",
       solution:
         "Built an AI assistant that auto-responds to FAQs, pricing, and scheduling. Only complex cases get routed to humans, and even those are pre-processed with AI summaries.",
       result:
@@ -17,7 +17,7 @@ export const successCases = {
       client: "Badfairy",
       category: "E-Commerce Web Catalog",
       problem:
-        "A family craft business had no online store — just DMs and Instagram posts. Customers couldn't easily browse products on their own, leading to lost sales and a lot of back-and-forth.",
+        "A family craft business had no online store with just DMs and Instagram posts. Customers couldn't easily browse products on their own, leading to lost sales and a lot of back-and-forth.",
       solution:
         "Built a full web catalog with a visual CMS so the owners manage products themselves. Reliable image hosting via AWS.",
       result:
